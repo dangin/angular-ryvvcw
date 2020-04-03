@@ -26,13 +26,10 @@ export class AppComponent  {
 
   newPlayer() {
     const dialogRef = this.dialog.open(NewPlayerDialog, {
-      height: '40%',
-      width: '60%',
-      data: {name: 'asd'}
+      height: '240px'
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      debugger
       this.bingoService.playerCards.push({
         name:name,
         codes:JSON.parse(JSON.stringify(this.bingoService.codes))
