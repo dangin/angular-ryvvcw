@@ -17,6 +17,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 
 import { PlayerListComponent } from './player-list/player-list.component';
 import { SearchPlayerPipe } from './player-list/search-player.pipe';
+import { LoginService } from './login.service';
 
 @NgModule({
   imports: [ 
@@ -43,7 +44,7 @@ import { SearchPlayerPipe } from './player-list/search-player.pipe';
     AppComponent 
   ],
   providers: [ 
-    BingoService 
+    BingoService, LoginService 
   ]
 })
 export class AppModule { }
