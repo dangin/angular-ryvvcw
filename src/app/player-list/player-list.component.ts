@@ -15,7 +15,7 @@ export class PlayerListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.bingoService.getPlayers().subscribe(players => this.players = players)
+    this.bingoService.getPlayers().subscribe(players => {console.log(players); this.players = players})
   }
   
   loadCards(name) {

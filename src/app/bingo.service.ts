@@ -22,7 +22,6 @@ export class BingoService {
 
   public addPlayer(p:Player) {
     this.players.push(p);
-    this.players = this.players.slice();
   }
 
   public pickNumber() {
