@@ -1,0 +1,45 @@
+p {
+  font-family: Lato;
+}
+
+.card{
+  display: inline-block;
+  margin:5px 20px;
+}
+@media print
+{    
+    .no-print, .no-print *
+    {
+        display: none !important;
+    }
+}
+input,textarea {
+  width: 100%;
+}
+.pick {
+  font-family: serif;
+}
+.full-width {
+  width:100%;
+}
+button {
+  margin-right:5px;
+  margin-bottom:10px;
+}
+button.full-width {
+  margin-right:0px;
+}
+
+.half-screen {
+  min-height:500px;
+}
+.block {
+  display: block;
+}
+.side-bar {
+padding:10px;
+}
+
+mat-drawer-container {
+  border-bottom:1px solid #ccc;
+}

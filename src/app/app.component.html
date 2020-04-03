@@ -1,0 +1,27 @@
+<mat-drawer-container class="example-container" class="no-print half-screen">
+  <mat-drawer mode="side" opened class="side-bar">
+    <button mat-flat-button (click)="newPlayer()" color="primary" class="full-width">New player</button>
+    <player-list></player-list>
+  </mat-drawer>
+  <mat-drawer-content>
+    <form class="card block">
+      <mat-form-field class="full-width">
+        <mat-label>Title</mat-label>
+        <input matInput type="text" #title>
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <mat-label>Picked Numbers</mat-label>
+        <input matInput value="" >
+      </mat-form-field>
+      <div>
+        <button mat-raised-button color="primary" (click)="pickNumber()">Pick Number</button>
+        <span class="pick"> {{columnName(lastPick)}} {{lastPick}} </span>
+      </div>
+    </form>
+  </mat-drawer-content>
+</mat-drawer-container>
+  <h3>{{title.value}}</h3>
+  <div class="card" *ngFor="let item of bingoService.codes; let i = index">
+    {{i+1}} of {{bingoService.codes.length}}
+    <bingo-card [code]="bingoService.codes[i]"></bingo-card>
+  </div>
