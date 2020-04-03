@@ -13,7 +13,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { PlayerListComponent } from './player-list/player-list.component';
 import { SearchPlayerPipe } from './player-list/search-player.pipe';
@@ -29,7 +29,8 @@ import { SearchPlayerPipe } from './player-list/search-player.pipe';
     MatSidenavModule,
     MatDialogModule,
     MatListModule,
-    MatFormFieldModule 
+    MatFormFieldModule
+    
   ],
   declarations: [ 
     AppComponent, 

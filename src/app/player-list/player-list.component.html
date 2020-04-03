@@ -5,7 +5,7 @@
   </mat-form-field>
 </form>
 <mat-action-list>
-  <button mat-list-item (click)="loadCards(p.name)" *ngFor="let p of bingoService.playerCards | search:'name':query"> 
+  <button mat-list-item (click)="loadCards(p.name)" *ngFor="let p of players | search:'name':query"> 
    {{p.name}}
   </button>
 </mat-action-list>

@@ -1,7 +1,8 @@
-import { Component,HostBinding } from '@angular/core';
+import { Component,HostBinding,OnInit } from '@angular/core';
 import { BingoService } from './bingo.service';
-import {FormControl, Validators} from '@angular/forms';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { FormControl, Validators } from '@angular/forms';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Player } from './models/Player';
 
 import {
   trigger,
@@ -16,79 +17,40 @@ import {
   templateUrl: './app.component.html',
   styleUrls: [ './app.component.css' ]
 })
-export class AppComponent  {
+export class AppComponent implements OnInit {
   constructor(public bingoService: BingoService,public dialog: MatDialog) {} 
+  ngOnInit() {
+    this.bingoService.getPlayers().subscribe(players => this.players = players)
+  }
 
-  cards = [];
   title = '';
   lastPick = null;
   pickedNumbers = this.bingoService.pickedNumbers;
+  players:Player[]
 
-  newPlayer() {
-    const dialogRef = this.dialog.open(NewPlayerDialog, {
-      height: '240px'
+  public newPlayer() {
+    const dialogRef = this.dialog.open(NewPlayerDialog, {});
+
+    dialogRef.afterClosed().subscribe(data => {
+      let codes = [];
+      for (var i = 0; i < parseInt(data[1]); i++) {
+        codes.push(this.bingoService.generateBingoCard());
+      }
+      let p = new Player(data[0], codes)
+      this.bingoService.addPlayer(p)
     });
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.bingoService.playerCards.push({
-        name:name,
-        codes:JSON.parse(JSON.stringify(this.bingoService.codes))
-      })
-    });
-    //this.bingoService.cdRef.detectChanges();
   }
 
-  copyCodes() {
-    this.copyToClipboard(this.bingoService.codes.join(','));
-  }
-  pasteCodes() {
-    let codes = prompt()
-    if (codes) {
-      this.bingoService.codes=codes.split(',');
-    }
-    this.cards = this.bingoService.codes
-  }
-
-  columnName(n) {
+  public columnName(n) {
     if (n) {
       let cols = ['B','I','N','G','O'];
       return cols[Math.floor(n/15)];
     }
   }
 
-  pickNumber() {
+  public pickNumber() {
     this.lastPick = this.bingoService.pickNumber();
-  }
-  cardCounter(n) {
-    return new Array(n);
-  }
-
-  createCards(n) {
-    this.bingoService.codes.length = 0;
-    for(let i = 0; i < parseInt(n); i++) {
-      this.bingoService.generateBingoCard();
-    }
-  }
-
-  copyToClipboard(str) {
-    const el = document.createElement('textarea');  
-    el.value = str;                                 
-    el.setAttribute('readonly', '');                
-    el.style.position = 'absolute';                 
-    el.style.left = '-9999px';                      
-    document.body.appendChild(el);                  
-    const selected =            
-      document.getSelection().rangeCount > 0        
-        ? document.getSelection().getRangeAt(0)     
-        : false;                                    
-    el.select();                                    
-    document.execCommand('copy');                   
-    document.body.removeChild(el);                  
-    if (selected) {                                 
-      document.getSelection().removeAllRanges();    
-      document.getSelection().addRange(selected);   
-    }
-  };
+  }  
 }
 
 @Component({
@@ -96,6 +58,10 @@ export class AppComponent  {
   templateUrl: './new-player/new-player.component.html'
 })
 export class NewPlayerDialog {
+  cancel() {
+
+  }
+
   playerName = new FormControl('', [
     Validators.required
   ]);

@@ -4,6 +4,8 @@
     <mat-label>Player Name</mat-label>
     <input matInput type="text" [formControl]="playerName">
   </mat-form-field>
+</div>
+<div>
   <mat-form-field class="full-width">
     <mat-label>How many cards? (1-100)</mat-label>
     <input matInput type="number" [formControl]="amount">
@@ -11,5 +13,5 @@
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="cancel()">Cancel</button>
-  <button mat-button [mat-dialog-close]="[playerName, amount]" cdkFocusInitial>Ok</button>
+  <button mat-button [mat-dialog-close]="[playerName.value, amount.value]" cdkFocusInitial>Ok</button>
 </div>

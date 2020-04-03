@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BingoService } from '../bingo.service';
+import { Player } from '../models/Player';
 
 @Component({
   selector: 'player-list',
@@ -8,14 +9,17 @@ import { BingoService } from '../bingo.service';
 })
 export class PlayerListComponent implements OnInit {
   query
+  players:Player[]
+
   constructor(public bingoService: BingoService) { 
   }
 
   ngOnInit() {
+    this.bingoService.getPlayers().subscribe(players => this.players = players)
   }
   
   loadCards(name) {
-    let p = this.bingoService.playerCards.find(function(p) {
+    let p = this.players.find(function(p) {
       return p.name == name;
     });
     this.bingoService.codes = p.codes;    
